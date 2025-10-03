@@ -1,143 +1,620 @@
+/* إعدادات عامة */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #ff0000;
+  --secondary-color: #00f;
+  --dark-bg: #000;
+  --light-text: #fff;
+  --gray-text: #ccc;
+}
+
 body {
-  margin:0;
-  padding:0;
-  font-family:'Arial Black', sans-serif;
-  background:#000;
-  perspective:1200px;
-  overflow-x:hidden;
-  color:#fff;
+  font-family: 'Arial Black', 'Arial', sans-serif;
+  background: var(--dark-bg);
+  color: var(--light-text);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* شريط التنقل */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  padding: 1rem 0;
+  box-shadow: 0 2px 20px rgba(255, 0, 0, 0.3);
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.nav-menu {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-menu a {
+  color: var(--light-text);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.nav-menu a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-color);
+  transition: width 0.3s;
+}
+
+.nav-menu a:hover::after {
+  width: 100%;
+}
+
+.nav-menu a:hover {
+  color: var(--primary-color);
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.burger span {
+  width: 25px;
+  height: 3px;
+  background: var(--light-text);
+  transition: all 0.3s;
+}
+
+/* قسم البطل */
+#hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 #background-video {
-  position:fixed;
-  top:0; left:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:-1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(255,0,0,0.3));
+  z-index: 0;
 }
 
 .hero-text {
-  position:relative;
-  text-align:center;
-  margin-top:100px;
-  color:#fff;
-  text-shadow:2px 2px 8px #000;
+  position: relative;
+  z-index: 1;
+  text-align: center;
   transform-style: preserve-3d;
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-text h1 {
-  font-size:3rem;
-  transition: transform 0.5s;
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin-bottom: 1rem;
+  text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* تأثير Glitch */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch::before {
+  animation: glitch-1 2s infinite;
+  color: #ff0000;
+  z-index: -1;
+}
+
+.glitch::after {
+  animation: glitch-2 2s infinite;
+  color: #00ff00;
+  z-index: -2;
+}
+
+@keyframes glitch-1 {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(2px, -2px); }
+  40% { transform: translate(2px, 2px); }
+  60% { transform: translate(-2px, -2px); }
+  80% { transform: translate(-2px, 2px); }
 }
 
 .hero-text p {
-  font-size:1.5rem;
-  color:#ff0000;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: var(--gray-text);
+  margin-bottom: 2rem;
 }
 
+.cta-button {
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  background: linear-gradient(45deg, var(--primary-color), #ff4444);
+  border: none;
+  border-radius: 50px;
+  color: var(--light-text);
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+  font-weight: bold;
+}
+
+.cta-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(255, 0, 0, 0.6);
+}
+
+/* مؤشر التمرير */
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 50px;
+  border: 2px solid var(--light-text);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.scroll-indicator span {
+  width: 6px;
+  height: 10px;
+  background: var(--primary-color);
+  border-radius: 3px;
+  animation: scroll 2s infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(20px); opacity: 0; }
+}
+
+/* عناوين الأقسام */
 .section-title {
-  font-size:2.5rem;
-  margin-bottom:40px;
-  color:#ff0000;
-  text-shadow:2px 2px 8px #000;
-  text-align:center;
-  transform-style: preserve-3d;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 80px 0 60px;
+  color: var(--primary-color);
+  text-shadow: 2px 2px 10px rgba(255, 0, 0, 0.5);
+  text-align: center;
+  position: relative;
+  animation: slideInDown 0.8s ease-out;
 }
 
-/* Carousel */
-.carousel-section .carousel, #news-carousel {
-  display:flex;
-  gap:40px;
-  overflow:hidden;
-  scroll-behavior:smooth;
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.player-circle, .news-card {
-  flex:0 0 auto;
-  transform-style: preserve-3d;
-  transition: transform 0.6s, box-shadow 0.6s;
+.section-title::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+  margin: 20px auto 0;
 }
 
-.player-circle:hover, .news-card:hover {
-  transform: rotateY(20deg) rotateX(10deg) scale(1.1);
-  box-shadow:0 0 50px rgba(255,0,0,0.9);
+/* أقسام Carousel */
+.carousel-section {
+  padding: 60px 20px;
+  background: linear-gradient(180deg, #000, #0a0a0a);
+  overflow: hidden;
+}
+
+.carousel-container {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.carousel {
+  display: flex;
+  gap: 40px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 20px;
+  scrollbar-width: none;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* أزرار التنقل */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 0, 0, 0.8);
+  border: none;
+  color: var(--light-text);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-btn:hover {
+  background: var(--primary-color);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
 }
 
 /* دوائر اللاعبين والكؤوس */
 .player-circle {
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  overflow:hidden;
-  position:relative;
+  flex: 0 0 auto;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 4px solid transparent;
+  background: linear-gradient(#000, #000) padding-box,
+              linear-gradient(45deg, var(--primary-color), var(--secondary-color)) border-box;
+}
+
+.player-circle:hover {
+  transform: rotateY(15deg) rotateX(10deg) scale(1.1);
+  box-shadow: 0 0 60px rgba(255, 0, 0, 0.8),
+              0 0 100px rgba(0, 0, 255, 0.4);
 }
 
 .player-circle img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  backface-visibility:hidden;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s;
+}
+
+.player-circle:hover img {
+  transform: scale(1.1);
 }
 
 .player-info {
-  position:absolute;
-  bottom:0;
-  width:100%;
-  background:rgba(0,0,0,0.6);
-  color:#fff;
-  text-align:center;
-  padding:10px;
-  opacity:0;
-  transition: opacity 0.3s;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+  color: var(--light-text);
+  text-align: center;
+  padding: 20px 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s;
 }
 
 .player-circle:hover .player-info {
-  opacity:1;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* أخبار كرة القدم */
+.player-info h2 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  color: var(--primary-color);
+}
+
+.player-info p {
+  font-size: 0.9rem;
+  margin: 4px 0;
+}
+
+.rating {
+  margin-top: 8px;
+  font-size: 1.2rem;
+}
+
+/* قسم الأخبار */
 #news {
-  padding:60px 20px;
-  background: linear-gradient(to right, #000000, #0a0a0a);
+  padding: 80px 20px;
+  background: linear-gradient(to bottom, #0a0a0a, #000);
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .news-card {
-  width:300px;
-  border-radius:20px;
-  overflow:hidden;
-  background:#111;
+  background: #111;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.5s;
+  position: relative;
+  border: 2px solid transparent;
+}
+
+.news-card:hover {
+  transform: translateY(-10px) rotateX(5deg);
+  box-shadow: 0 20px 60px rgba(255, 0, 0, 0.4);
+  border-color: var(--primary-color);
+}
+
+.news-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--primary-color);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  z-index: 1;
+  animation: pulse 2s infinite;
+}
+
+.news-badge.highlight {
+  background: linear-gradient(45deg, #ffd700, #ffed4e);
+  color: #000;
 }
 
 .news-card img {
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  border-bottom:2px solid #ff0000;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.6s;
+}
+
+.news-card:hover img {
+  transform: scale(1.1);
 }
 
 .news-info {
-  padding:15px;
+  padding: 20px;
+}
+
+.news-date {
+  display: inline-block;
+  color: var(--gray-text);
+  font-size: 0.85rem;
+  margin-bottom: 10px;
 }
 
 .news-info h3 {
-  font-size:1.3rem;
-  margin-bottom:10px;
-  color:#00f;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  color: var(--light-text);
+  line-height: 1.4;
 }
 
 .news-info p {
-  font-size:1rem;
-  color:#ccc;
+  font-size: 1rem;
+  color: var(--gray-text);
+  margin-bottom: 15px;
+  line-height: 1.6;
 }
 
-/* استجابة الأجهزة */
-@media(max-width:768px){
-  .player-circle, .news-card {width:250px; height:250px;}
+.read-more {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+  display: inline-block;
 }
 
-@media(max-width:480px){
-  .player-circle, .news-card {width:200px; height:200px;}
-  .hero-text h1 {font-size:2rem;}
-  .hero-text p {font-size:1rem;}
-  }
+.read-more:hover {
+  color: #ff4444;
+  transform: translateX(5px);
+}
+
+/* قسم الإحصائيات */
+.stats-section {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #000, #1a0000);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px 20px;
+  text-align: center;
+  transition: all 0.4s;
+  border: 2px solid rgba(255, 0, 0, 0.2);
+}
+
+.stat-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  background: rgba(255, 0, 0, 0.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 20px 40px rgba(255, 0, 0, 0.3);
+}
+
+.stat-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.stat-number {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.stat-card p {
+  font-size: 1.2rem;
+  color: var(--gray-text);
+}
+
+/* التذييل */
+.footer {
+  background: #000;
+  padding: 60px 20px 20px;
+  border-top: 3px solid var(--primary-color);
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section h3 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.footer-section p {
+  color: var(--gray-text);
+  line-height: 1.8;
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section a {
+  color: var(--gray-text);
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.footer-section a:hover {
+  color: var(--primary-color);
+  padding-right: 10px;
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-links a {
+  font-size: 2rem;
+  transition: transform 0.3s;
+}
+
+.social-links a:hover {
+  transform: scale(1.3) rotate(10deg);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px soli
