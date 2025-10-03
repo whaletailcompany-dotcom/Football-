@@ -1,1 +1,143 @@
+body {
+  margin:0;
+  padding:0;
+  font-family:'Arial Black', sans-serif;
+  background:#000;
+  perspective:1200px;
+  overflow-x:hidden;
+  color:#fff;
+}
 
+#background-video {
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-1;
+}
+
+.hero-text {
+  position:relative;
+  text-align:center;
+  margin-top:100px;
+  color:#fff;
+  text-shadow:2px 2px 8px #000;
+  transform-style: preserve-3d;
+}
+
+.hero-text h1 {
+  font-size:3rem;
+  transition: transform 0.5s;
+}
+
+.hero-text p {
+  font-size:1.5rem;
+  color:#ff0000;
+}
+
+.section-title {
+  font-size:2.5rem;
+  margin-bottom:40px;
+  color:#ff0000;
+  text-shadow:2px 2px 8px #000;
+  text-align:center;
+  transform-style: preserve-3d;
+}
+
+/* Carousel */
+.carousel-section .carousel, #news-carousel {
+  display:flex;
+  gap:40px;
+  overflow:hidden;
+  scroll-behavior:smooth;
+}
+
+.player-circle, .news-card {
+  flex:0 0 auto;
+  transform-style: preserve-3d;
+  transition: transform 0.6s, box-shadow 0.6s;
+}
+
+.player-circle:hover, .news-card:hover {
+  transform: rotateY(20deg) rotateX(10deg) scale(1.1);
+  box-shadow:0 0 50px rgba(255,0,0,0.9);
+}
+
+/* دوائر اللاعبين والكؤوس */
+.player-circle {
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  overflow:hidden;
+  position:relative;
+}
+
+.player-circle img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  backface-visibility:hidden;
+}
+
+.player-info {
+  position:absolute;
+  bottom:0;
+  width:100%;
+  background:rgba(0,0,0,0.6);
+  color:#fff;
+  text-align:center;
+  padding:10px;
+  opacity:0;
+  transition: opacity 0.3s;
+}
+
+.player-circle:hover .player-info {
+  opacity:1;
+}
+
+/* أخبار كرة القدم */
+#news {
+  padding:60px 20px;
+  background: linear-gradient(to right, #000000, #0a0a0a);
+}
+
+.news-card {
+  width:300px;
+  border-radius:20px;
+  overflow:hidden;
+  background:#111;
+}
+
+.news-card img {
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-bottom:2px solid #ff0000;
+}
+
+.news-info {
+  padding:15px;
+}
+
+.news-info h3 {
+  font-size:1.3rem;
+  margin-bottom:10px;
+  color:#00f;
+}
+
+.news-info p {
+  font-size:1rem;
+  color:#ccc;
+}
+
+/* استجابة الأجهزة */
+@media(max-width:768px){
+  .player-circle, .news-card {width:250px; height:250px;}
+}
+
+@media(max-width:480px){
+  .player-circle, .news-card {width:200px; height:200px;}
+  .hero-text h1 {font-size:2rem;}
+  .hero-text p {font-size:1rem;}
+  }
